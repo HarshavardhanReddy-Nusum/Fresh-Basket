@@ -34,7 +34,8 @@ export const placeOrderCOD = async (req,res) => {
 //Place order stripe: /api/order/stripe
 export const placeOrderStripe = async (req,res) => {
     try {
-        const { userId, items, address } = req.body;
+        const { items, address } = req.body;
+        const userId = req.userId;
         const {origin} = req.headers;
 
         if(!address || items.length === 0) {
@@ -101,6 +102,7 @@ export const placeOrderStripe = async (req,res) => {
 //Stripe webhooks to verify payments action: /stripe
 
 export const stripeWebhooks = async (req,res) => {
+    console.log("stripe webhook received")
     const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY)
     const sig = req.headers["stripe-signature"]
     let event;
@@ -127,7 +129,7 @@ export const stripeWebhooks = async (req,res) => {
             //Mark payment as paid
             await Order.findByIdAndUpdate(orderId, {isPaid: true})
             //clear user cart
-            await User.findByIdAndUpdate(userId, {cartItems: {}});
+            await User.findByIdAndUpdate(userId, {cartItems: []});
             break;
         }
         case "payment_intent.payment_failed": {

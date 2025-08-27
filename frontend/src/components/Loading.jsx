@@ -10,7 +10,6 @@ const Loading = () => {
     const nexturl = query.get('next')
 
     useEffect(() => {
-        setCartItems({})
         if(nexturl) {
             setTimeout(() => {
                 navigate(`/${nexturl}`)
