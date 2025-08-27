@@ -4,12 +4,13 @@ import { useLocation } from 'react-router-dom';
 
 const Loading = () => {
 
-    const { navigate } = useAppContext();
+    const { navigate, setCartItems } = useAppContext();
     let { search } = useLocation()
     const query = new URLSearchParams(search)
     const nexturl = query.get('next')
 
     useEffect(() => {
+        setCartItems({})
         if(nexturl) {
             setTimeout(() => {
                 navigate(`/${nexturl}`)
