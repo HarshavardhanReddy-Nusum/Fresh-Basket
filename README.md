@@ -1,4 +1,4 @@
-FreshBasket 🛒
+#FreshBasket 🛒
 
 FreshBasket is a full-stack online grocery store built with the MERN stack (MongoDB, Express, React, Node.js). It allows users to browse products, manage carts, place orders, and make payments online.
 
